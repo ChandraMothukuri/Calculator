@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="icon" href="Calculator_image.png">
+
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(230, 230, 230);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: hidden;
+            overflow-x:hidden;
+        }
+        .container{
+            background-color: white;
+            width: 40rem;
+            max-width: 40rem;
+            height: 40rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .container h1{
+            margin: 2rem 0 0 0;
+        }
+        .answer{
+            width: 15rem;
+            height: 3rem;
+            margin: 2rem;
+            border-color: rgb(77,124,164);
+            border-width: 5px;   
+            font-size: 1.2rem;     
+            text-align: end;   
+        }
+        .container .calculator{
+            background-color: rgb(77, 124, 164);
+            width: 20rem;
+            max-width: 30rem;
+            height: auto;
+            max-height: 30rem;
+            padding: 2px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+        }
+        .numbers{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .container .calculator .calculator-buttons-css{
+            width: 5rem;
+            height: 5rem;
+            font-size: 1rem;
+            font-weight:bolder;
+        }
+
+       
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Calculator</h1>
+        <input class="answer" disabled>
+        <div class="calculator">
+    
+            <div class="numbers">
+                <button class="reset calculator-buttons-css">AC</button>
+                <button class="delete calculator-buttons-css">C</button>
+                <button class="calculator-buttons calculator-buttons-css">^</button>
+                <button class="calculator-buttons calculator-buttons-css">9</button>
+                <button class="calculator-buttons calculator-buttons-css">8</button>
+                <button class="calculator-buttons calculator-buttons-css">7</button>            
+                <button class="calculator-buttons calculator-buttons-css">6</button>
+                <button class="calculator-buttons calculator-buttons-css">5</button>
+                <button class="calculator-buttons calculator-buttons-css">4</button>
+                <button class="calculator-buttons calculator-buttons-css">3</button>
+                <button class="calculator-buttons calculator-buttons-css">2</button>
+                <button class="calculator-buttons calculator-buttons-css">1</button>
+                <button class="calculator-buttons calculator-buttons-css">0</button>
+                <button class="calculator-buttons calculator-buttons-css">•</button>
+                <button class="calculator-buttons calculator-buttons-css">=</button>
+            </div>
+            <div class="arithmetic">
+                <button class="calculator-buttons calculator-buttons-css">%</button>
+                <button class="calculator-buttons calculator-buttons-css">/</button>
+                <button class="calculator-buttons calculator-buttons-css">*</button>
+                <button class="calculator-buttons calculator-buttons-css">-</button>
+                <button class="calculator-buttons calculator-buttons-css">+</button>
+            </div>
+
+        </div>
+    
+
+    </div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const display = document.querySelector(".answer");
+            const buttons = document.querySelectorAll(".calculator-buttons");
+            const resetButton = document.querySelector(".reset");
+            const deleteButton = document.querySelector(".delete");
+            const resetButtonInside = document.querySelector(".reset-inside");
+            const deleteButtonInside = document.querySelector(".delete-inside");
+            let expression = "";
+
+                
+            buttons.forEach(button => {
+                button.addEventListener("click", function () {
+                    
+                    let value = button.textContent;  
+                    let powerexpression = "";
+                    if (value === "•") {
+                        value = ".";
+                    }
+                    
+                    
+                    if (value === "=") {
+                        try {
+                            expression = eval(expression);
+                            display.value = expression;
+                        } catch {
+                            display.value = "Error";
+                            expression = "";
+                        }
+                    } 
+                    else {
+                        if( value === "^"){
+                            powerexpression += "^";
+                            expression += "**";
+                            display.value += powerexpression;
+                        } 
+                    
+                            
+                        else{
+                            powerexpression += value ;
+                            expression += value ;
+                            display.value += powerexpression;
+                        }               
+                           
+                        }
+                        
+                    
+                });
+            });
+
+            resetButton.addEventListener("click", function () {
+                expression = "";
+                display.value = "";
+            });
+            deleteButton.addEventListener("click", function () {
+                expression = expression.slice(0,-1);
+                display.value = display.value.slice(0, -1);
+            });
+
+           
+
+        });
+    </script>
+
+</body>
+</html>
